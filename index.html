@@ -1,96 +1,1335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KC GLOVIC</title>
-  <style>
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body { font-family: Arial, sans-serif; background:#f4f4f4; padding-bottom:70px; }
-    header { background:#0a2a66; color:white; padding:20px; text-align:center; }
-    .page { display:none; max-width:600px; margin:20px auto; background:white; padding:25px; border-radius:10px; }
-    .page.active { display:block; }
-    input { width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:5px; }
-    .btn { width:100%; padding:14px; background:#0a2a66; color:white; border:none; border-radius:5px; font-size:16px; font-weight:bold; }
-    .btn-whatsapp { background:#25D366; display:block; text-align:center; padding:14px; color:white; text-decoration:none; border-radius:5px; margin:10px 0; font-weight:bold; }
-    .btn-call { background:#0a2a66; display:block; text-align:center; padding:14px; color:white; text-decoration:none; border-radius:5px; margin:10px 0; font-weight:bold; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KC Glovic Shop Center</title>
 
-    /* BOTTOM NAV - LIKE CARDTRUST */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: white;
-      display: flex;
-      border-top: 1px solid #ddd;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    }
-    .nav-item {
-      flex:1;
-      text-align:center;
-      padding:10px 5px;
-      font-size:12px;
-      color:#777;
-      cursor:pointer;
-    }
-    .nav-item.active { color:#0a2a66; font-weight:bold; }
-    .nav-item span { display:block; font-size:20px; }
-  </style>
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:#f5f5f5;
+  color:#222;
+  padding-bottom:80px;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#111;
+  color:white;
+  padding:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:bold;
+  color:#ffd21c;
+}
+
+.location{
+  font-size:11px;
+  color:#ddd;
+}
+
+.search{
+  display:flex;
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.search input{
+  flex:1;
+  border:0;
+  padding:12px;
+  outline:none;
+  font-size:14px;
+}
+
+.search button{
+  border:0;
+  background:#ffd21c;
+  padding:0 16px;
+  font-size:18px;
+}
+
+.hero{
+  margin:12px;
+  border-radius:14px;
+  overflow:hidden;
+  position:relative;
+  height:180px;
+  background:#222;
+}
+
+.hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.65;
+}
+
+.heroText{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:20px;
+  color:white;
+}
+
+.heroText h1{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.heroText p{
+  font-size:13px;
+  max-width:300px;
+}
+
+.section{
+  padding:12px;
+}
+
+.sectionTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.sectionTitle h2{
+  font-size:18px;
+}
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:5px;
+}
+
+.category{
+  flex:0 0 auto;
+  background:white;
+  border:1px solid #ddd;
+  border-radius:20px;
+  padding:9px 14px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.category.active{
+  background:#ffd21c;
+  border-color:#ffd21c;
+  font-weight:bold;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.card{
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  display:flex;
+  flex-direction:column;
+  min-height:360px;
+}
+
+.card img{
+  width:100%;
+  height:155px;
+  object-fit:cover;
+  background:#ddd;
+}
+
+.cardBody{
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+.tag{
+  display:inline-block;
+  background:#fff3b0;
+  color:#725b00;
+  font-size:10px;
+  padding:4px 7px;
+  border-radius:5px;
+  margin-bottom:6px;
+  width:max-content;
+}
+
+.card h3{
+  font-size:15px;
+  margin-bottom:5px;
+}
+
+.description{
+  font-size:11px;
+  color:#777;
+  line-height:1.4;
+}
+
+.price{
+  margin-top:auto;
+  padding-top:10px;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.price small{
+  font-size:10px;
+  color:#777;
+  font-weight:normal;
+}
+
+.cardActions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-top:9px;
+}
+
+.btn{
+  border:0;
+  border-radius:7px;
+  padding:9px 5px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.btnPrimary{
+  background:#ffd21c;
+  color:#111;
+  font-weight:bold;
+}
+
+.btnDark{
+  background:#111;
+  color:white;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.detail{
+  padding:12px;
+}
+
+.detail img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  border-radius:14px;
+}
+
+.back{
+  margin:12px 0;
+  border:0;
+  background:white;
+  padding:10px 15px;
+  border-radius:8px;
+}
+
+.detail h1{
+  margin-top:12px;
+  font-size:24px;
+}
+
+.detail p{
+  margin-top:8px;
+  color:#666;
+  line-height:1.5;
+}
+
+.days{
+  margin-top:15px;
+}
+
+.days input{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  margin-top:6px;
+}
+
+.total{
+  background:#fff;
+  margin-top:15px;
+  padding:15px;
+  border-radius:10px;
+}
+
+.bigButton{
+  width:100%;
+  border:0;
+  background:#ffd21c;
+  padding:14px;
+  border-radius:9px;
+  font-weight:bold;
+  margin-top:12px;
+}
+
+.cartItem{
+  background:white;
+  padding:12px;
+  margin-bottom:8px;
+  border-radius:10px;
+  display:flex;
+  gap:10px;
+}
+
+.cartItem img{
+  width:80px;
+  height:65px;
+  object-fit:cover;
+  border-radius:7px;
+}
+
+.empty{
+  text-align:center;
+  padding:50px 20px;
+  color:#777;
+}
+
+.order{
+  background:white;
+  margin-bottom:10px;
+  padding:14px;
+  border-radius:10px;
+}
+
+.orderStatus{
+  color:#168a3c;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.accountBox{
+  background:white;
+  margin:12px;
+  padding:20px;
+  border-radius:12px;
+}
+
+.bottomNav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:70px;
+  background:white;
+  border-top:1px solid #ddd;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:2000;
+}
+
+.navItem{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-size:11px;
+  color:#666;
+  cursor:pointer;
+}
+
+.navIcon{
+  font-size:21px;
+  margin-bottom:3px;
+}
+
+.navItem.active{
+  color:#111;
+  font-weight:bold;
+}
+
+.cartCount{
+  background:red;
+  color:white;
+  font-size:9px;
+  padding:2px 5px;
+  border-radius:10px;
+  position:absolute;
+  margin-left:17px;
+  margin-top:-8px;
+}
+
+@media(min-width:700px){
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .hero{
+    height:260px;
+  }
+
+  .card{
+    min-height:390px;
+  }
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>KC GLOVIC</h1>
-    <p>Equipment, Supplies & Logistics</p>
-  </header>
 
-  <!-- PAGE 1: HOME -->
-  <div id="home" class="page active">
-    <h2>Welcome</h2>
-    <p>KC GLOVIC is your trusted partner for Equipment Rental, Supplies and Logistics.</p>
-    <a href="https://wa.me/2348066114709" class="btn-whatsapp">💬 Chat on WhatsApp</a>
-    <a href="tel:08064959199" class="btn-call">📞 Call Us: 08064959199</a>
+<header>
+  <div class="top">
+    <div>
+      <div class="logo">K.G.V SHOP CENTER</div>
+      <div class="location">KC Glovic Nigeria Limited • Abakaliki</div>
+    </div>
   </div>
 
-  <!-- PAGE 2: SIGN UP -->
-  <div id="signup" class="page">
-    <h2>Create Account</h2>
-    <form action="https://formspree.io/f/xeaqaoey" method="POST">
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <button class="btn">Sign Up</button>
-    </form>
+  <div class="search">
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Search trucks, excavators, sand..."
+      oninput="searchProducts()"
+    >
+    <button>🔍</button>
+  </div>
+</header>
+
+<!-- HOME -->
+<section id="homePage" class="page active">
+
+  <div class="hero">
+    <img
+      src="https://s.alicdn.com/%40sc04/kf/Ha2de31b95a7045c4a668e1fa209ce4b8Z/360-Degree-Tilt-Transport-Dump-Truck-6x4-Used-Euro-2-Right-Hand-Drive-Dumper-Truck-10-Wheel-Diesel-Tipper.jpg"
+      alt="HOWO dump truck"
+    >
+
+    <div class="heroText">
+      <h1>Heavy Equipment & Materials</h1>
+      <p>
+        Rent trucks and construction equipment or order
+        gravel and sand from KC Glovic.
+      </p>
+    </div>
   </div>
 
-  <!-- PAGE 3: LOGIN -->
-  <div id="login" class="page">
-    <h2>Login</h2>
-    <form action="https://formspree.io/f/xeaqaoey" method="POST">
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <button class="btn">Login</button>
-    </form>
+  <div class="section">
+
+    <div class="sectionTitle">
+      <h2>Categories</h2>
+    </div>
+
+    <div class="categories">
+
+      <div class="category active"
+           onclick="filterCategory('all',this)">
+        All
+      </div>
+
+      <div class="category"
+           onclick="filterCategory('truck',this)">
+        🚛 Trucks
+      </div>
+
+      <div class="category"
+           onclick="filterCategory('excavator',this)">
+        🚜 Excavators
+      </div>
+
+      <div class="category"
+           onclick="filterCategory('loader',this)">
+        🏗️ Payloaders
+      </div>
+
+      <div class="category"
+           onclick="filterCategory('dozer',this)">
+        🚧 Dozers
+      </div>
+
+      <div class="category"
+           onclick="filterCategory('material',this)">
+        🪨 Materials
+      </div>
+
+      <div class="category"
+           onclick="filterCategory('construction',this)">
+        👷 Construction
+      </div>
+
+    </div>
   </div>
 
-  <!-- BOTTOM NAVIGATION -->
-  <div class="bottom-nav">
-    <div class="nav-item active" onclick="showPage('home')"><span>🏠</span>Home</div>
-    <div class="nav-item" onclick="showPage('signup')"><span>📝</span>Sign Up</div>
-    <div class="nav-item" onclick="showPage('login')"><span>🔑</span>Login</div>
-    <div class="nav-item" onclick="window.open('https://wa.me/2348066114709')"><span>💬</span>WhatsApp</div>
+  <div class="section">
+
+    <div class="sectionTitle">
+      <h2>Popular Services</h2>
+    </div>
+
+    <div id="products" class="products"></div>
+
   </div>
 
-  <script>
-    function showPage(id) {
-      // hide all pages
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      // show selected page
-      document.getElementById(id).classList.add('active');
-      // update nav active
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      event.currentTarget.classList.add('active');
+</section>
+
+<!-- DETAIL -->
+<section id="detailPage" class="page">
+
+  <div class="detail">
+
+    <button class="back" onclick="showPage('homePage')">
+      ← Back
+    </button>
+
+    <img id="detailImage">
+
+    <h1 id="detailName"></h1>
+
+    <p id="detailDescription"></p>
+
+    <div class="price" id="detailPrice"></div>
+
+    <div class="days">
+      <label>Number of days</label>
+      <input
+        id="rentalDays"
+        type="number"
+        min="1"
+        value="1"
+        onchange="updateTotal()"
+      >
+    </div>
+
+    <div class="total">
+      <strong>Estimated Total</strong>
+      <h2 id="detailTotal">₦0</h2>
+      <small>
+        Final price may depend on distance, job location and service requirements.
+      </small>
+    </div>
+
+    <button
+      class="bigButton"
+      onclick="addCurrentToCart()">
+      🛒 Add to Cart
+    </button>
+
+    <button
+      class="bigButton"
+      onclick="orderCurrentWhatsApp()">
+      WhatsApp to Order
+    </button>
+
+  </div>
+
+</section>
+
+<!-- CART -->
+<section id="cartPage" class="page">
+
+  <div class="section">
+
+    <div class="sectionTitle">
+      <h2>Your Cart</h2>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div id="cartTotal"></div>
+
+  </div>
+
+</section>
+
+<!-- ORDERS -->
+<section id="ordersPage" class="page">
+
+  <div class="section">
+
+    <div class="sectionTitle">
+      <h2>My Orders</h2>
+    </div>
+
+    <div id="orders"></div>
+
+  </div>
+
+</section>
+
+<!-- ACCOUNT -->
+<section id="accountPage" class="page">
+
+  <div class="accountBox">
+
+    <h2>My Account</h2>
+
+    <p style="margin-top:10px;">
+      Welcome to KC Glovic Shop Center.
+    </p>
+
+    <p style="margin-top:15px;">
+      📍 Abakaliki, Ebonyi State
+    </p>
+
+    <p style="margin-top:8px;">
+      📞 08066114709
+    </p>
+
+    <p style="margin-top:8px;">
+      📞 08064959199
+    </p>
+
+    <button
+      class="bigButton"
+      onclick="openWhatsApp()">
+      💬 Contact KC Glovic
+    </button>
+
+  </div>
+
+</section>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottomNav">
+
+  <div
+    class="navItem active"
+    onclick="showPage('homePage');setActive(this)">
+    <div class="navIcon">🏠</div>
+    Home
+  </div>
+
+  <div
+    class="navItem"
+    onclick="showPage('homePage');setActive(this)">
+    <div class="navIcon">📦</div>
+    Categories
+  </div>
+
+  <div
+    class="navItem"
+    onclick="showPage('ordersPage');setActive(this);renderOrders()">
+    <div class="navIcon">📋</div>
+    Orders
+  </div>
+
+  <div
+    class="navItem"
+    onclick="showPage('cartPage');setActive(this);renderCart()">
+    <div class="navIcon">
+      🛒
+      <span id="cartCount" class="cartCount">0</span>
+    </div>
+    Cart
+  </div>
+
+  <div
+    class="navItem"
+    onclick="showPage('accountPage');setActive(this)">
+    <div class="navIcon">👤</div>
+    Account
+  </div>
+
+</nav>
+
+<script>
+
+/* =========================
+   PRODUCT DATA
+========================= */
+
+const products = [
+
+  {
+    id:1,
+    name:"HOWO Dump Truck",
+    category:"truck",
+    price:50000,
+    unit:"day",
+    image:"https://s.alicdn.com/%40sc04/kf/Ha2de31b95a7045c4a668e1fa209ce4b8Z/360-Degree-Tilt-Transport-Dump-Truck-6x4-Used-Euro-2-Right-Hand-Drive-Dumper-Truck-10-Wheel-Diesel-Tipper.jpg",
+    description:"Heavy-duty HOWO dump truck suitable for transporting sand, gravel and construction materials."
+  },
+
+  {
+    id:2,
+    name:"Hydraulic Excavator",
+    category:"excavator",
+    price:70000,
+    unit:"day",
+    image:"https://home.cern/sites/default/files/2018-06/digger2.jpg",
+    description:"Tracked hydraulic excavator for digging, earthmoving, foundation and construction work."
+  },
+
+  {
+    id:3,
+    name:"Payloader / Wheel Loader",
+    category:"loader",
+    price:65000,
+    unit:"day",
+    image:"https://www.htfmarketintelligence.com/uploads/reports/17639948367307.webp",
+    description:"Heavy wheel loader for loading gravel, sand, soil and other construction materials."
+  },
+
+  {
+    id:4,
+    name:"Bulldozer",
+    category:"dozer",
+    price:75000,
+    unit:"day",
+    image:"https://www.sotraplant.be/uploads/video/_1200x630_crop_center-center_none/chantier_dave_1.jpg",
+    description:"Tracked bulldozer for land clearing, grading, leveling and earthmoving."
+  },
+
+  {
+    id:5,
+    name:"Gravel Supply",
+    category:"material",
+    price:0,
+    unit:"request",
+    image:"https://www.htfmarketintelligence.com/uploads/reports/17639948367307.webp",
+    description:"Quality construction gravel supplied according to your project requirements."
+  },
+
+  {
+    id:6,
+    name:"Sharp / Plaster Sand",
+    category:"material",
+    price:0,
+    unit:"request",
+    image:"https://stroytorg-leon.ru/sites/default/files/styles/large/public/pesok-prirodnyj-600x584.png?itok=G2IeLSD3",
+    description:"Construction sand suitable for plastering, building and other construction work."
+  },
+
+  {
+    id:7,
+    name:"Building Contractor",
+    category:"construction",
+    price:0,
+    unit:"request",
+    image:"https://s0.rbk.ru/v6_top_pics/media/img/2/14/347199181999142.webp",
+    description:"Professional construction support and building contractor services."
+  },
+
+  {
+    id:8,
+    name:"Construction Equipment Support",
+    category:"construction",
+    price:0,
+    unit:"request",
+    image:"https://s.alicdn.com/%40sc04/kf/Ha2de31b95a7045c4a668e1fa209ce4b8Z/360-Degree-Tilt-Transport-Dump-Truck-6x4-Used-Euro-2-Right-Hand-Drive-Dumper-Truck-10-Wheel-Diesel-Tipper.jpg",
+    description:"Construction equipment and material support for building and earthmoving projects."
+  }
+
+];
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let currentProduct = null;
+let currentCategory = "all";
+let cart = JSON.parse(localStorage.getItem("kgvCart")) || [];
+let orders = JSON.parse(localStorage.getItem("kgvOrders")) || [];
+
+
+/* =========================
+   DISPLAY PRODUCTS
+========================= */
+
+function displayProducts(list = products){
+
+  const container = document.getElementById("products");
+
+  container.innerHTML = "";
+
+  if(list.length === 0){
+
+    container.innerHTML = `
+      <div class="empty">
+        No service found.
+      </div>
+    `;
+
+    return;
+  }
+
+  list.forEach(product => {
+
+    const priceText =
+      product.price > 0
+      ? `₦${product.price.toLocaleString()}`
+      : "Contact us";
+
+    container.innerHTML += `
+
+      <div class="card">
+
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+          loading="lazy"
+          onerror="this.style.background='#ddd';"
+        >
+
+        <div class="cardBody">
+
+          <span class="tag">
+            KC Glovic
+          </span>
+
+          <h3>${product.name}</h3>
+
+          <div class="description">
+            ${product.description}
+          </div>
+
+          <div class="price">
+            ${priceText}
+
+            ${
+              product.price > 0
+              ? `<small>/ ${product.unit}</small>`
+              : ""
+            }
+          </div>
+
+          <div class="cardActions">
+
+            <button
+              class="btn btnPrimary"
+              onclick="openProduct(${product.id})">
+              View
+            </button>
+
+            <button
+              class="btn btnDark"
+              onclick="quickOrder(${product.id})">
+              Order
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   OPEN PRODUCT
+========================= */
+
+function openProduct(id){
+
+  const product = products.find(p => p.id === id);
+
+  currentProduct = product;
+
+  document.getElementById("detailImage").src =
+    product.image;
+
+  document.getElementById("detailName").textContent =
+    product.name;
+
+  document.getElementById("detailDescription").textContent =
+    product.description;
+
+  document.getElementById("detailPrice").innerHTML =
+    product.price > 0
+    ? `₦${product.price.toLocaleString()} <small>/ day</small>`
+    : "Contact for price";
+
+  document.getElementById("rentalDays").value = 1;
+
+  updateTotal();
+
+  showPage("detailPage");
+
+}
+
+
+/* =========================
+   TOTAL
+========================= */
+
+function updateTotal(){
+
+  if(!currentProduct) return;
+
+  const days =
+    Number(document.getElementById("rentalDays").value) || 1;
+
+  const total =
+    currentProduct.price * days;
+
+  document.getElementById("detailTotal").textContent =
+    currentProduct.price > 0
+    ? `₦${total.toLocaleString()}`
+    : "Contact KC Glovic";
+
+}
+
+
+/* =========================
+   CART
+========================= */
+
+function addCurrentToCart(){
+
+  if(!currentProduct) return;
+
+  const days =
+    Number(document.getElementById("rentalDays").value) || 1;
+
+  cart.push({
+    ...currentProduct,
+    days:days
+  });
+
+  localStorage.setItem(
+    "kgvCart",
+    JSON.stringify(cart)
+  );
+
+  updateCartCount();
+
+  alert("Added to cart!");
+
+}
+
+
+function renderCart(){
+
+  const container =
+    document.getElementById("cartItems");
+
+  const totalContainer =
+    document.getElementById("cartTotal");
+
+  container.innerHTML = "";
+
+  if(cart.length === 0){
+
+    container.innerHTML = `
+      <div class="empty">
+        🛒 Your cart is empty.
+      </div>
+    `;
+
+    totalContainer.innerHTML = "";
+
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach((item,index)=>{
+
+    const itemTotal =
+      item.price * item.days;
+
+    total += itemTotal;
+
+    container.innerHTML += `
+
+      <div class="cartItem">
+
+        <img src="${item.image}" alt="${item.name}">
+
+        <div style="flex:1">
+
+          <strong>${item.name}</strong>
+
+          <p style="font-size:11px;color:#777;margin-top:5px;">
+            ${item.days} day(s)
+          </p>
+
+          <p style="margin-top:5px;font-weight:bold;">
+            ${
+              item.price > 0
+              ? "₦" + itemTotal.toLocaleString()
+              : "Contact for price"
+            }
+          </p>
+
+          <button
+            class="btn btnDark"
+            style="margin-top:7px"
+            onclick="removeCart(${index})">
+            Remove
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  totalContainer.innerHTML = `
+
+    <div class="total">
+
+      <strong>Estimated Cart Total</strong>
+
+      <h2 style="margin-top:7px;">
+        ${
+          total > 0
+          ? "₦" + total.toLocaleString()
+          : "Contact KC Glovic"
+        }
+      </h2>
+
+      <button
+        class="bigButton"
+        onclick="checkoutWhatsApp()">
+        💬 Send Order on WhatsApp
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+function removeCart(index){
+
+  cart.splice(index,1);
+
+  localStorage.setItem(
+    "kgvCart",
+    JSON.stringify(cart)
+  );
+
+  updateCartCount();
+
+  renderCart();
+
+}
+
+
+function updateCartCount(){
+
+  document.getElementById("cartCount").textContent =
+    cart.length;
+
+}
+
+
+/* =========================
+   QUICK ORDER
+========================= */
+
+function quickOrder(id){
+
+  const product =
+    products.find(p => p.id === id);
+
+  currentProduct = product;
+
+  orderCurrentWhatsApp();
+
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+function orderCurrentWhatsApp(){
+
+  if(!currentProduct) return;
+
+  const days =
+    Number(document.getElementById("rentalDays")?.value) || 1;
+
+  const total =
+    currentProduct.price * days;
+
+  const message =
+
+`Hello KC Glovic 👋
+
+I want to make an enquiry/order.
+
+Service:
+${currentProduct.name}
+
+Number of days:
+${days}
+
+Estimated price:
+${
+  currentProduct.price > 0
+  ? "₦" + total.toLocaleString()
+  : "Please send me the price"
+}
+
+Please let me know availability and delivery/service details.
+
+Thank you.`;
+
+  const url =
+    "https://wa.me/2348066114709?text=" +
+    encodeURIComponent(message);
+
+  window.open(url,"_blank");
+
+}
+
+
+/* =========================
+   CART WHATSAPP
+========================= */
+
+function checkoutWhatsApp(){
+
+  if(cart.length === 0) return;
+
+  let message =
+`Hello KC Glovic 👋
+
+I want to make an order/enquiry:
+
+`;
+
+  cart.forEach((item,index)=>{
+
+    message +=
+`${index+1}. ${item.name}
+Days: ${item.days}
+`;
+
+    if(item.price > 0){
+
+      message +=
+      `Estimated: ₦${(item.price * item.days).toLocaleString()}\n`;
+
+    }else{
+
+      message +=
+      `Price: Please send price\n`;
+
     }
-  </script>
+
+    message += "\n";
+
+  });
+
+  message +=
+`Please confirm availability, final price and service location.
+
+Thank you.`;
+
+  const url =
+    "https://wa.me/2348066114709?text=" +
+    encodeURIComponent(message);
+
+  window.open(url,"_blank");
+
+}
+
+
+/* =========================
+   ACCOUNT WHATSAPP
+========================= */
+
+function openWhatsApp(){
+
+  window.open(
+    "https://wa.me/2348066114709",
+    "_blank"
+  );
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchProducts(){
+
+  const query =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const filtered =
+    products.filter(product =>
+
+      product.name.toLowerCase().includes(query) ||
+      product.description.toLowerCase().includes(query)
+
+    );
+
+  displayProducts(filtered);
+
+}
+
+
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+function filterCategory(category, element){
+
+  currentCategory = category;
+
+  document
+    .querySelectorAll(".category")
+    .forEach(el =>
+      el.classList.remove("active")
+    );
+
+  element.classList.add("active");
+
+  if(category === "all"){
+
+    displayProducts(products);
+
+  }else{
+
+    displayProducts(
+      products.filter(
+        product => product.category === category
+      )
+    );
+
+  }
+
+}
+
+
+/* =========================
+   PAGES
+========================= */
+
+function showPage(pageId){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page =>
+      page.classList.remove("active")
+    );
+
+  document
+    .getElementById(pageId)
+    .classList.add("active");
+
+  window.scrollTo(0,0);
+
+}
+
+
+function setActive(element){
+
+  document
+    .querySelectorAll(".navItem")
+    .forEach(item =>
+      item.classList.remove("active")
+    );
+
+  element.classList.add("active");
+
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+function renderOrders(){
+
+  const container =
+    document.getElementById("orders");
+
+  if(orders.length === 0){
+
+    container.innerHTML = `
+      <div class="empty">
+        You don't have any orders yet.
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML = "";
+
+  orders.forEach(order => {
+
+    container.innerHTML += `
+
+      <div class="order">
+
+        <strong>
+          ${order.name}
+        </strong>
+
+        <p style="margin-top:7px;font-size:12px;">
+          ${order.date}
+        </p>
+
+        <p class="orderStatus" style="margin-top:7px;">
+          ${order.status}
+        </p>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+displayProducts();
+
+updateCartCount();
+
+</script>
+
 </body>
 </html>
